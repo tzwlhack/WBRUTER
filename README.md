@@ -7,7 +7,7 @@ This is a minimal tool for bruteforce attack various kind of things, read help f
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
-#### News: 2019-01-08
+#### News: 2019-01-14
 
 I have decided to release my own tool for brute force pin locks wich is supported on all android devices. I have seen so many wikis/tutorials online that wont work for real on non-root devices, they are all kinda 
 useless since you wont be able to delete the locksettings.db from data/misc path unless the device has been rooted and if the device has been rooted then there is no need for "hack/crack" the pin really, its a simple 'rm' 
@@ -40,6 +40,8 @@ you have found on the street this is not possible unless you already know the pi
      setprop persist.service.adb.enable 1
 
 ##### Preiew 1 - ANDROID CLI
+_wbruter-temp.sh_ is the same script as _.scripts/wbruter-android-v1.5.sh_
+
 ![Screenshot](files/wbruter-cli.gif)
 
 ##### Preiew 2 - ANDROID CLI - PARALLEL
@@ -64,14 +66,13 @@ A linux setup would be good ;)
 
 #### CONTACT 
 
-If you have problems, questions, ideas or suggestions please contact
-us by posting to info@sendit.nu
+If you have problems, questions, ideas or suggestions please contact me by posting to wuseman@nr1.nu
 
 #### WEB SITE
 
-Visit our homepage for the latest info and updated tools
+Visit my websites and profiles for the latest info and updated tools
 
-https://sendit.nu & https://github.com/wuseman/
+ https://github.com/wuseman/ && https://nr1.nu && https://stackoverflow.com/users/9887151/wuseman
 
 #### END!
 
