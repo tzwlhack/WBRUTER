@@ -1,6 +1,8 @@
 #!/bin/bash
 ####
-#### Author: wuseman <wuseman@nr1.nu>
+#### Copyright (C) 2019  wuseman <wuseman@nr1.nu> - All Rights Reserved
+#### Last revised 14012019
+#### GNU GENERAL PUBLIC LICENSE
 #### License: GPL 3.0
 #### Description: Bruteforce tool for android devices with 100% guarantee 
 ####              to crack the current pinlock on any android device aslong usb debugging has been enable
