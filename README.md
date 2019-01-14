@@ -7,7 +7,7 @@ This is a minimal tool for bruteforce attack various kind of things, read help f
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
-#### News: 2019-01-08
+#### News: 2019-01-14
 
 I have decided to release my own tool for brute force pin locks wich is supported on all android devices. I have seen so many wikis/tutorials online that wont work for real on non-root devices, they are all kinda 
 useless since you wont be able to delete the locksettings.db from data/misc path unless the device has been rooted and if the device has been rooted then there is no need for "hack/crack" the pin really, its a simple 'rm' 
