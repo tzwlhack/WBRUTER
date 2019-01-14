@@ -331,14 +331,13 @@ fi
 
 if [ $flag -eq $FALSE ]
 then
-	echo "Could not Found Password ?? "
-	echo "Password tried : $counter"
-	echo "please Try Again with other Keywords."
+	echo "No password found, tried $counter passwords. Try again with another wordlist."
 fi
 
 fi
 
 android_pin_unlock() {
+adbexist
 isphoneconnected="$(adb devices | sed '1d' | sed '/^$/d')"
  if [ ! $isphoneconnected 2> /dev/null ]; then
       echo "Your device is not connected properly.."
