@@ -40,6 +40,8 @@ you have found on the street this is not possible unless you already know the pi
      setprop persist.service.adb.enable 1
 
 ##### Preiew 1 - ANDROID CLI
+_wbruter-temp.sh_ is the same script as _.scripts/wbruter-android-v1.5.sh_
+
 ![Screenshot](files/wbruter-cli.gif)
 
 ##### Preiew 2 - ANDROID CLI - PARALLEL
