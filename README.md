@@ -12,6 +12,7 @@ _Many times it's the easiest methods that are the most powerful methods, it's ju
 #### News: 2019-01-14
 
 I decided to release my private tool for brute forcing for android devices wich is supported on all android devices from android 5.0(that's last version i have been able to try) since I have seen so many wikis/tutorials online that wont work for  non-rooted devices, they are all kinda useless since you wont be able to remove the locksettings.db file wich is the where the pin code is stored because android devices is mounted as ro(read only) and this can't be bypassed unless the android device has been rooted so we can remount it as rw(read-write) instead. How many % of all devices has been rooted if we count * devices out there, we can agree that it's pretty few compared to non-rooted devices, see my example here below how it goes if the phone is non-rooted: 
+
 ![Screenshot](files/wbruter-fail.gif)
 
 **But hey**, from now you don't need to bother about all these lame tutorials around the net wich wont work for majority of all that owns an android device. My android device in the preview video is an Huawei P8 Lite and it's a 
