@@ -1,67 +1,63 @@
 # WBRUTER
 
 
+![Screenshot](files/banner.png)
+
 #### README
 
-This is a minimal tool for bruteforce attack various kind of things, read help for more info. The tool has been written in pure bash without any third party bruteforce tools.
+wbruter is a a brute force tool for attack android devices with **100%** guarantee to crack the pin code aslong as usb debugging has been enable. wbruter also includes some other brute methods like dictionary attacks for gmail, ftp, rar, zip and some other file extensions. I wont add brute methods for facebook, instagram, snap or other sites like these because there is already tons of these tools on github.
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
 #### News: 2019-01-14
 
-I have decided to release my own tool for brute force pin locks wich is supported on all android devices. I have seen so many wikis/tutorials online that wont work for real on non-root devices, they are all kinda 
-useless since you wont be able to delete the locksettings.db from data/misc path unless the device has been rooted and if the device has been rooted then there is no need for "hack/crack" the pin really, its a simple 'rm' 
-command that is needed and that's NOT what  hacking/cracking is about. From now you will be able to crack any android device with 4 or 6 digits with **100%** guarantee to succeed within an hour or two. Of course the time
-matters on how many threads you will use and what kind of device you got, in my video below you can see how wbruter gonna work in parallell mode for speedup the attack ;) My android device is an Huawei P8 Lite and it's 
-a slow CPU + 3GB ram only so it's not THAT fast as the latest mobile devices are so it might be much faster on your android device if you have a newer one.
+I decided to release my private tool for brute forcing for android devices wich is supported on all android devices from android 5.0(that's last version i have been able to try) since I have seen so many wikis/tutorials online that wont work for  non-rooted devices, they are all kinda useless since you wont be able to remove the locksettings.db file wich is the where the pin code is stored because android devices is mounted as ro(read only) and this can't be bypassed unless the android device has been rooted so we can remount it as rw(read-write) instead. How many % of all devices has been rooted if we count * devices out there, we can agree that it's pretty few compared to non-rooted devices, see my example here below how it goes if the phone is non-rooted: 
+![Screenshot](files/wbruter-fail.sh)
 
-My earlier version in this repo is nowadays pretty useless since it's almost impossible to brute force the pin via login screen(GUI) since after 4 wrong pin code attempts we will be blocked for X seconds, and after 5 
-attempts we getting blocked for even more seconds etc etc so it will take until forever kinda to succeed with that method and almost all devices with android installed has a protection that will wipe or factory reset the device 
-to defaults after 4-10 wrong pin code attempts and then all data will be lost and it's _almost_ impossible to recover all data after a factory reset unless you realy know what you are doing. But hey, from now you really don't 
-need to bother about these protections anymore.
+**But hey**, from now you don't need to bother about all these lame tutorials around the net wich wont work for majority of all that owns an android device. My android device in the preview video is an Huawei P8 Lite and it's a 
+slow CPU in this phone and it's only 3GB amount of ram in this device wich is pretty low comparing to the new phones on the market so it might be much faster on your android device.
 
-I guarantee(all current android versions until 2018-01-13) you will be able to crack the pin aslong as USB Debugging has been enable. 
-In my videos below i proove that my device is non-rooted and that it's actually gonna work no matter how many pins you will need until the pin has been cracked. I decided to  use +20 attempts just for this view and since we 
-don't want to make the video too long. wbruter is the first tool online that has been released to public with this method afaik and open source. It's no reason to search on google for tips and tricks anymore for 'how-to break 
-android pinlock' cause as you probably already has figure out that 90-95% of all sites (even some devs on xda-developers forum) claims that you can remove locksettings.db from data/misc dir but this is impossible unless your 
-device has been rooted and if the device has been rooted then we dont need to crack anything as said earlier. Enjoy the videos below. Have fun with wbruter and don't do anything I wouldn't have done with this tool... ;-)
+My earlier version in this repo is nowadays pretty useless since it's almost impossible to brute force the pin lock via login screen(GUI) since after 4 wrong pin code attempts we will be blocked for X seconds, and after 5 
+attempts we getting blocked for even more seconds etc etc so it will take until forever kinda to succeed with this method and almost all android devices has a protection that will wipe or factory reset the device to default settings after ~4-10 wrong pin attempts and that will result in data loss wich  is _almost_ impossible to recover _unless you really know what you are doing. In my videos below i proove that my device is non-rooted and this method actually gonna work to crack the pin no matter how many pin attempts you will need until the pin has been cracked. I decided to use +20 attempts since that's enough for proove that it actually working. wbruter is the first tool online that has been released to public with this uniqe method. There is no reason for search on google anymore for tips and tricks for 'how-to break android's pinlock' cause as you probably already has figured out 90-95% of all sites (even some devs on xda-developers forum) claims that you can remove locksettings.db from data/system dir wich you have seen is impossible 
 
-If you only care about to break android pins and just give a f**k about the other methods you can grab the android tool in .scripts/wbruter-android-v1.5.sh. Enjoy.
+You don't have to be fooled anymore, enjoy a tool that actually works.
 
-## For turn on usb debugging ON:
+## Enable USB-Debugging via the methods below:
 
-#### Via Android Device: 
-settings -> about > press on build number 7 times and the developer settings will be enable, go back to settings and press on developer mode and then enable USB DEBUGGING. (If you just wanna try wbruter for fun, if it's a phone 
-you have found on the street this is not possible unless you already know the pin :P)
+#### Via GUI: 
+Go to settings -> about > press on build number 7 times and the developer settings will be enable, go back to settings and press on developer mode and then enable USB DEBUGGING. If you found an android deviceon the street or something and want to break the pin this wont be possible unless you already know the pin so the device must have usb debugging enable for this to work. You wanna try this for fun then you can just enable usb debugging after you unlocked phone)
 
-#### Via a terminal emulator on device: 
+#### Via cli/adb: 
 
      settings put global development_settings_enabled 1
      setprop persist.service.adb.enable 1
 
-##### Preiew 1 - ANDROID CLI
-_wbruter-temp.sh_ is the same script as _.scripts/wbruter-android-v1.5.sh_
-
+#### Preiew 1 - ANDROID CLI
+##### use ./wbruter -a 4 for this method
 ![Screenshot](files/wbruter-cli.gif)
 
-##### Preiew 2 - ANDROID CLI - PARALLEL
+#### Preiew 2 - ANDROID CLI - PARALLEL
 ![Screenshot](files/wbruter-android-parallell.gif)
 
-##### Preiew 3 - GMAIL
+#### Preiew 3 - GMAIL
 ![Screenshot](files/wbruter-gmail.gif)
 
-##### Preiew 4 - FTP/GLFTPD
+#### Preiew 4 - FTP/GLFTPD
 ![Screenshot](files/wbruter-ftp.gif)
 
-##### Preiew 5 - GPG
+#### Preiew 5 - GPG
 ![Screenshot](files/wbruter--gpg.gif)
 
-##### HOW TO
+#### HOW TO
 
     git clone https://github.com/wuseman/WBRUTER
-    cd wbruter; ./wbruter -option
+    cd wbruter; ./wbruter [-X]
 
-    Thats it, easier than this, it can not be to bruteforce attack various devices/accounts
+    Thats it, easier than this it can't be for attack various stuff, execute wbruter with the method you wanna use and then fill in the options and it's done.
+    
+    wbruter has been developed for give all users the opportunity to restore the PIN-Code/Password if the user has managed to forget the pin code or password so they will be able to save the data on their device/account. 
+
+    Try to not break any law with this tool if there is a law against to recover a pin code in your country unless you own the device, or is it illegal data infringement? I have no idea and tbh i really do not care, have fun with wbruter!
 
 #### REQUIREMENTS
 
@@ -75,7 +71,6 @@ If you have problems, questions, ideas or suggestions please contact me by posti
 
 Visit my websites and profiles for the latest info and updated tools
 
- https://github.com/wuseman/ && https://nr1.nu && https://stackoverflow.com/users/9887151/wuseman
+https://github.com/wuseman/ && https://nr1.nu && https://stackoverflow.com/users/9887151/wuseman
 
 #### END!
-

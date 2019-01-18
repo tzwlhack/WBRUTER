@@ -7,19 +7,21 @@
 help() {
 cat << "EOF"
 
-      \_/         -a) ANDROID CLI   - Brute force attack an android device with 100% guarantee to crack pin
-     (* *)        -A) ANDROID GUI   - Brute force attack android device via gui/login screen (OLD METHOD)
-    __)#(__       -G) GPG           - Dictionary attack for break the encryption of gpg files
-   ( )...( )(_)   -g) GMAIL         - Brute force attack an gmail account
+
+      ___
+     |   |        -a) ANDROID CLI   - Brute force attack an android device with 100% guarantee to crack pin
+    _|___|_       -A) ANDROID GUI   - Brute force attack android device via gui/login screen (OLD METHOD)
+     (* *)        -f) FTP/FTPS      - Dictionary attack for for any ftp/ftps server 
+    __)#(__       -g) GMAIL         - Dictionary attack for gmail accounts 
+   ( )...( )(_)   -G) GPG           - Dictionary attack for break the encryption of gpg files
    || |_| ||//    -h) HELP          - Print this help, duh!
->==() | | ()/     -l) LINUX         - Dictionary attack the root password of any linux system
-    _(___)_       -r) RAR           - Dictionary attack for break the encryption of rar files
-   [-]   [-]      -z) ZIP           - Brute force and dictionary attack a zip encryptedfile
-                 
-~~~~~~~~~~~~~~~   
+>==() | | ()/     -r) RAR           - Dictionary attack for break the encryption of rar files
+    _(___)_       -z) ZIP           - Brute force and dictionary attack a zip encryptedfile 
+   [-]   [-]      -v) VERSION       - Print version of wbruter
+~~~~~~~~~~~~~~~~
+| wbruter v1.6 |  brute force tool that is written in pure bash code and is meant to be as simple as possible
+~~~~~~~~~~~~~~~~
 
-  wbruter v1.6
-
-                 brute force tool that is written in pure bash code and is meant to be as simple as possible
 EOF
 }
+
