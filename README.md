@@ -50,7 +50,10 @@ _wbruter-temp.sh_ is the same script as _.scripts/wbruter-android-v1.5.sh_
 ##### Preiew 3 - GMAIL
 ![Screenshot](files/wbruter-gmail.gif)
 
-##### Preiew 4 - GPG
+##### Preiew 4 - FTP/GLFTPD
+![Screenshot](files/wbruter-ftp.gif)
+
+##### Preiew 5 - GPG
 ![Screenshot](files/wbruter--gpg.gif)
 
 ##### HOW TO
