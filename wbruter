@@ -11,7 +11,7 @@ VER=1.6
 if [[ -z $1 ]]; then source .scripts/wbruter-help.sh; help;exit;fi
 
 
-while getopts ":abghGArzf" getopt; do
+while getopts ":abghGArzfZ" getopt; do
 case $getopt in
 a)
 source .scripts/android-cli.sh
@@ -28,7 +28,7 @@ esac
 
 A)
 if [[ -z $2 ]]; then
-      echo "Error: You must specify atleast one argument of 4 or 6 digits (./wbruter -A 4)"
+      echo "You must specify atleast one argument of 4 or 6 digits (./wbruter -A 4)"
       echo "You might wanna try to use -a instead of A for guarantee to break the pin"
 fi
 
@@ -42,6 +42,7 @@ G) source .scripts/wbruter-gpg.sh; gpg_attack ;;
 g) source .scripts/wbruter-gmail.sh; gmail_attack ;;
 r) source .scripts/wbruter-rar.sh;rar_attack  ;;
 z) source .scripts/wbruter-zip.sh; zip_attack ;;
+Z) source .scripts/wbruter-znc.sh; znc_attack ;;
 esac
 done
 
