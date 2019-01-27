@@ -1,7 +1,7 @@
 # WBRUTER
 
 
-![Screenshot](https://nr1.nu/a.png)
+![Screenshot](https://nr1.nu/b.png)
 
 #### README
 
