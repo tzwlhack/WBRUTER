@@ -28,7 +28,7 @@ Go to settings -> about > press on build number 7 times and the developer settin
 #### HOW TO
 
     git clone https://github.com/wuseman/WBRUTER
-    cd wbruter; ./wbruter [-X]
+    cd WBRUTER; ./wbruter [-X]
 
 #### REQUIREMENTS
 
