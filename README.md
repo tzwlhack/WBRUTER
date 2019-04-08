@@ -1,6 +1,6 @@
 # WBRUTER
 
-![Screenshot](https://nr1.nu/wbruter-main.png)
+#### WBRUTER Has now support for a unique method for bruteforce SSH passwords by using pssh (parallel ssh)
 
 #### README
 
