@@ -89,7 +89,7 @@ END="\e[0m"
 ################################################################################
 androiddebug() {
 case $(adb devices | awk '{print $2}' | sed 1d | sed '$d') in
-    "unauthorized") echo " * You must enable usb-debugging in developer settings." ;;
+    "unauthorized") echo "* You must enable usb-debugging in developer settings." ;;
 esac
 }
 
@@ -439,11 +439,8 @@ echo -e "=====================================================\n"
 ################################################################################
 ################################################################################
 gmailattack() {
-
 requirements_gmail() {
-
 if [[ -n $(curl -v &> /dev/null) ]]; then echo "Curl is required for this tool, aborted."; exit 1;fi }
-
 gmail_attack() {
 if [[ -n $(curl -v &> /dev/null) ]]; then echo "Curl is required for this tool, aborted."; exit 1;fi; read -p $'Email: ' mail
 if [[ ! "$mail" =~ ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$ ]]; then echo -e "Error: email address $email is invalid, aborted."; exit 0;fi
@@ -465,14 +462,13 @@ if [[ -n "$attack" ]]; then
 fi
 
 if [ -n "$attack" ]; then
-   printf "%88s" | tr ' ' '-'
-   echo -e  "Password Has Been Found: $name\n"
-   printf "%88s" | tr ' ' '-'
+   printf "%88s\n" | tr ' ' '-'
+   echo -e  "Password Has Been Found: $name"
+   printf "%88s\n" | tr ' ' '-'
    exit
 fi
 done < "$wordlist"
-   printf "\n\n"
-   printf "Sorry, no passwords in $wordlist matched $mail current password. \n\n"
+   printf "\n\nSorry, no passwords in $wordlist matched $mail current password. \n\n"
    printf "Try with another wordlist...\n\n"
    exit
 else
