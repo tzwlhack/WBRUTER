@@ -23,7 +23,7 @@ Go to settings -> about > press on build number 7 times and the developer settin
 
 #### Example:
 
-![Screenshot](https://nr1.nu/wbruter-cli.gif)
+![Screenshot](https://nr1.nu/archive/wbruter/previews/)
 
 #### HOW TO
 
