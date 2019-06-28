@@ -21,7 +21,11 @@ Go to settings -> about > press on build number 7 times and the developer settin
      settings put global development_settings_enabled 1
      setprop persist.service.adb.enable 1
 
-#### Example:
+#### Via GUI (old layout now use --androidgui 4 instead)
+
+![Screenshot](https://raw.githubusercontent.com/1939149/wbruter/master/files/wbruter.gif)
+
+#### Via CLI:
 
 ![Screenshot](https://nr1.nu/archive/wbruter/previews/wbruter-cli.gif)
 
