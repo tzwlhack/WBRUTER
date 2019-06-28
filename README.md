@@ -20,6 +20,7 @@ Go to settings -> about > press on build number 7 times and the developer settin
      setprop persist.service.adb.enable 1
 
 #### Via GUI (old layout now use --androidgui 4 instead)
+##### Please use the other method instead since many devices has been set to erase the device after "10/15 wrong pin attempts" and this wont happen with the CLI method.
 
 ![Screenshot](https://raw.githubusercontent.com/1939149/wbruter/master/files/wbruter.gif)
 
