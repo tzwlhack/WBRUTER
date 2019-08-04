@@ -26,7 +26,7 @@ Go to settings -> about > press on build number 7 times and the developer settin
 
 #### Via CLI:
 
-From 1 to 9999 takes ~83 minutes. In around ~1h you will with 100% _guarantee_ have the pin code
+From 0000 to 9999 takes ~83 minutes. In around ~1h you will with 100% _guarantee_ have the pin code
 
 ![Screenshot](https://nr1.nu/archive/wbruter/previews/wbruter-cli.gif)
 
