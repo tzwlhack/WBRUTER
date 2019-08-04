@@ -1,4 +1,4 @@
-# WBRUTER
+# WBRUTER -- ANDROID
 
 #### README
 
@@ -28,10 +28,35 @@ Go to settings -> about > press on build number 7 times and the developer settin
 
 ![Screenshot](https://nr1.nu/archive/wbruter/previews/wbruter-cli.gif)
 
+#### Notice:
+
+If you will see a message similiar to message under you don't have to care, just let it run and it will be gone after ~4-5 failed attempts: 
+
+      Error while executing command: clear
+        java.lang.RuntimeException: No data directory found for package android
+        at android.app.ContextImpl.getDataDir(ContextImpl.java:2418)
+        at android.app.ContextImpl.getPreferencesDir(ContextImpl.java:533)
+        at android.app.ContextImpl.getSharedPreferencesPath(ContextImpl.java:795)
+        at android.app.ContextImpl.getSharedPreferences(ContextImpl.java:394)
+        at com.android.internal.widget.LockPatternUtils.monitorCheckPassword(LockPatternUtils.java:1814)
+        at com.android.internal.widget.LockPatternUtils.checkCredential(LockPatternUtils.java:398)
+        at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:548)
+        at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:509)
+        at com.android.server.LockSettingsShellCommand.checkCredential(LockSettingsShellCommand.java:151)
+        at com.android.server.LockSettingsShellCommand.onCommand(LockSettingsShellCommand.java:57)
+        at android.os.ShellCommand.exec(ShellCommand.java:96)
+        at com.android.server.LockSettingsService.onShellCommand(LockSettingsService.java:1945)
+        at android.os.Binder.shellCommand(Binder.java:574)
+        at android.os.Binder.onTransact(Binder.java:474)
+        at com.android.internal.widget.ILockSettings$Stub.onTransact(ILockSettings.java:419)
+        at com.android.server.HwLockSettingsService.onTransact(HwLockSettingsService.java:179)
+        at android.os.Binder.execTransact(Binder.java:675)
+
+
 #### HOW TO
 
     git clone https://github.com/wuseman/WBRUTER
-    cd WBRUTER; ./wbruter [-X]
+    cd WBRUTER; ./wbruter --help
 
 #### REQUIREMENTS
 
