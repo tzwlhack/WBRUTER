@@ -1,4 +1,4 @@
-# WBRUTER -- ANDROID
+# WBRUTER
 
 #### README
 
