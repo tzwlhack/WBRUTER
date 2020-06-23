@@ -811,7 +811,7 @@ printf "
   $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
 
      $BRIGHTBLUE--android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
-     $BRIGHTMAGENTA--android-gui                   - Brute force attack any android device via gui/login screen
+     $BRIGHTMAGENTA--android-gui [4] [6]        - Brute force attack any android device via gui/login screen
      $BRIGHTGREEN--ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
      $BRIGHTRED--gmail                        - Dictionary attack for crack password for any gmail account
      $BRIGHTCYAN--github                       - Dictionary attack for github accounts via web
