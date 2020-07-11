@@ -8,6 +8,11 @@ wbruter will allways try to bring support for rare protocols, wbruter wont conta
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
+
+## INFO: 2020-07-11:
+
+Android and Google, now have set a rule for locksettings via cli as via gui earlier, if you try to many attempts within X seconds you will be blocked for X seconds so wbruter via cli wont work anymore, on devices that upgraded to latest version of Android 10, older version should work fine unless they are upgraded to latest android version. 
+
 ## Enable USB-Debugging via the methods below:
 
 #### Via GUI: 
