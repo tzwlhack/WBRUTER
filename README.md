@@ -11,7 +11,7 @@ _Many times it's the easiest methods that are the most powerful methods, it's ju
 
 ## INFO: 2020-07-11:
 
-Android and Google, now have set a rule for locksettings via cli as via gui earlier, if you try to many attempts within X seconds you will be blocked for X seconds so wbruter via cli wont work anymor on devices that has been upgraded to latest version Android 10, older version should work fine unless they are upgraded to latest android version. 
+Android and Google, now have set a rule for locksettings via cli as via gui earlier, if you try to many attempts within X seconds you will be blocked for X seconds so wbruter via cli wont work anymore on devices that has been upgraded to latest version Android 10, older version should work fine unless they are upgraded to latest android version. 
 
 ## Enable USB-Debugging via the methods below:
 
